@@ -1,23 +1,4 @@
-import { useState } from "react";
-
-const initialGameBoard = [
-    [null, null, null],
-    [null, null, null],
-    [null, null, null]
-]
-
-const GameBoard = ({ onSelectSquare, turns }) => {
-
-    let gameBoard = initialGameBoard;
-
-    // turns 初始時是一個空陣列
-    // 隨著畫面被點擊時，會將資料存入 turns 陣列，直到畫面沒得點擊(9格都被點擊)為止
-    for (const turn of turns) {
-        const { square, player } = turn;
-        const { row, col } = square;
-
-        gameBoard[row][col] = player;
-    }
+const GameBoard = ({ onSelectSquare, gameBoard }) => {
 
     // gameBoard 的結構 (rowIndex, colIndex)
     //  [(0,0), (0,1), (0,2)],
@@ -33,7 +14,7 @@ const GameBoard = ({ onSelectSquare, turns }) => {
                             <li key={colIndex}>
                                 <button
                                     onClick={() => onSelectSquare(rowIndex, colIndex)}
-                                    disabled={playerSymbol !== null}
+                                    disabled={playerSymbol !== null} 
                                 >
                                     {playerSymbol}
                                 </button>
