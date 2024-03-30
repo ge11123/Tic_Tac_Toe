@@ -11,6 +11,7 @@ const App = () => {
         // 交換玩家
         setActivePlayer((currentPlayer) => (currentPlayer === 'X' ? 'O' : 'X'));
 
+        // 更新遊戲紀錄
         setGameTurns((prevGameTurns) => {
             let currentPlayer = "X";
 
@@ -36,9 +37,12 @@ const App = () => {
                 <Player initialName={"Player1"} symbol={"X"} isAcitve={activePlayer === "X"} />
                 <Player initialName={"Player2"} symbol={"O"} isAcitve={activePlayer === "O"} />
             </ol>
-            <GameBoard onSelectSquare={handleSelectSquare} activePlayerSymbol={activePlayer} />
+            <GameBoard
+                onSelectSquare={handleSelectSquare}
+                turns={gameTurns}
+            />
         </div>
-        <Log />
+        <Log turns={gameTurns}/>
     </main>
 
 
