@@ -1,6 +1,7 @@
+import { isCursorAtEnd } from "@testing-library/user-event/dist/utils";
 import { useState } from "react";
 
-const Player = ({ initialName, symbol }) => {
+const Player = ({ initialName, symbol, isAcitve }) => {
 
     const [isEditing, setIsEditing] = useState(false);
     const [playerName, setPlayerName] = useState(initialName);
@@ -25,12 +26,12 @@ const Player = ({ initialName, symbol }) => {
 
 
 
-    return <li>
+    return <li className={isAcitve ? "active" : undefined}>
         <span className="player">
             {editTablePlayerName}
             <span className="player-symbol">{symbol}</span>
         </span>
-        <button onClick={handleEditClick}>{isEditing ? "Save" : "Edit"}</button>; 
+        <button onClick={handleEditClick}>{isEditing ? "Save" : "Edit"}</button>;
 
     </li>
 }
