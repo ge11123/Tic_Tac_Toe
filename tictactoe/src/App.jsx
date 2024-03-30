@@ -3,21 +3,28 @@ import Player from './components/Player.jsx';
 import { useState } from "react";
 import Log from './components/Log.jsx';
 
+const deriveActivePlayer = (gameTurns) => {
+    let currentPlayer = "X";
+
+    if (gameTurns.length > 0 && gameTurns[0].player === "X") {
+        currentPlayer = "O";
+    }
+
+    return currentPlayer;
+}
+
+
+
 const App = () => {
-    const [activePlayer, setActivePlayer] = useState('X');
     const [gameTurns, setGameTurns] = useState([]);
 
+    const activePlayer = deriveActivePlayer(gameTurns);
+
     const handleSelectSquare = (rowIndex, colIndex) => {
-        // 交換玩家
-        setActivePlayer((currentPlayer) => (currentPlayer === 'X' ? 'O' : 'X'));
 
         // 更新遊戲紀錄
         setGameTurns((prevGameTurns) => {
-            let currentPlayer = "X";
-
-            if (prevGameTurns.length > 0 && prevGameTurns[0].player === "X") {
-                currentPlayer = "O";
-            }
+            const currentPlayer = deriveActivePlayer(prevGameTurns);
 
             const updatedTurns = [
                 {
@@ -42,7 +49,7 @@ const App = () => {
                 turns={gameTurns}
             />
         </div>
-        <Log turns={gameTurns}/>
+        <Log turns={gameTurns} />
     </main>
 
 
