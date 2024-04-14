@@ -28,7 +28,8 @@ const App = () => {
     const [gameTurns, setGameTurns] = useState([]);
     const activePlayer = deriveActivePlayer(gameTurns);
 
-    let gameBoard = initialGameBoard;
+    let gameBoard = [...initialGameBoard.map(array => [...array])];
+    // let gameBoard = initialGameBoard;
 
     // turns 初始時是一個空陣列
     // 隨著畫面被點擊時，會將資料存入 turns 陣列，直到畫面沒得點擊(9格都被點擊)為止
@@ -72,6 +73,9 @@ const App = () => {
     }
 
     const hasDraw = gameTurns.length === 9 && !winner;
+    const handleRematch = () => {
+        setGameTurns([]);
+    }
 
     return <main>
         <div id="game-container">
@@ -79,7 +83,7 @@ const App = () => {
                 <Player initialName={"Player1"} symbol={"X"} isAcitve={activePlayer === "X"} />
                 <Player initialName={"Player2"} symbol={"O"} isAcitve={activePlayer === "O"} />
             </ol>
-            {(winner || hasDraw) && <GameOver winner={winner} />}
+            {(winner || hasDraw) && <GameOver winner={winner} onRestart={handleRematch} />}
             <GameBoard
                 onSelectSquare={handleSelectSquare}
                 gameBoard={gameBoard}
